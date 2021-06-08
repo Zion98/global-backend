@@ -6,6 +6,9 @@ var indexRouter = require('./routes/index');
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
 var app = express();
+var cors = require("cors");
+
+
 
 dotenv.config();
 
@@ -24,6 +27,13 @@ mongoose
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 
 app.use('/', indexRouter);
